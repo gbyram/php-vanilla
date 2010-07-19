@@ -23,7 +23,7 @@
 
  require "./core.php";
 
-$path = './exemples/celex_IP-04-901.el.xml';
+(isset($argv[1])) ? $path = $argv[1] : $path = './exemples/celex_IP-04-901.el.xml';
 $factory_mot = Core::path2fm($path);
 $rep = $factory_mot->__get_repartition_segment();
 
@@ -39,8 +39,8 @@ foreach($rep as $id_doc => $doc){
 }
 $str_tok .= ".EOP\n";
 
-$path_tok = $path.".tok";
-tool_files::file_write($path_tok,$str_tok);
-
-die();
+$path_tok = $path.".ad.tok";
+if(tool_files::file_write($path_tok,$str_tok)){
+  print ">> tokens created in $path_tok";
+}
 ?>

@@ -22,7 +22,8 @@
  require "./required/string/class_segment.php";
  require "./core.php";
 
-$path = './exemples/celex_IP-04-901.el.xml';
+(isset($argv[1])) ? $path = $argv[1] : $path = './exemples/celex_IP-04-901.el.xml';
+
 $factory_mot = Core::path2fm($path);
 $rep = $factory_mot->__get_repartition_segment();
 
@@ -31,17 +32,14 @@ foreach($rep as $id_doc => $doc){
   foreach($doc as $array_segments){
     foreach($array_segments as $id_segment){
       $mot = $factory_mot->__get_word($id_segment);
-      if($mot == "."){
-        $str_tok .= ".\n";
-        $str_tok .= ".EOS\n";
-      }
-      else{
-        $str_tok .= "$mot\n";
-      }
+      ($mot == ".") ? $str_tok .= ".\n.EOS\n" : $str_tok .= "$mot\n";
     }
   }
 }
 $str_tok .= ".EOP\n";
-$path_tok = $path.".sentence.tok";
-tool_files::file_write($path_tok,$str_tok);
+
+$path_tok = $path.".sd.tok";
+if(tool_files::file_write($path_tok,$str_tok)){
+  print ">> tokens created in $path_tok";
+}
 ?>

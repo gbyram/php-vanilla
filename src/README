@@ -1,0 +1,53 @@
+Vanilla Aligner, V1.1
+
+AUTHORS:
+  Pernilla Danielsson and Daniel Ridings
+  Språkbanken
+  Institutionen för svenska språket 
+  Göteborgs universitet
+  S-412 98 Göteborg SWEDEN
+
+DOCUMENTATION:
+  http://nl.ijs.si/telri/Vanilla/doc/
+
+DIRECTORY CONTENTS:
+
+  Program: align.c
+
+  Turin European Council 29 March 1996 Presidency Conclusions;
+  English (en), French (fr), German (de);
+  text file (.txt), tokenised file (.tok):
+
+  turinde.tok
+  turinde.txt
+  turinen.tok
+  turinen.txt
+  turinfr.tok
+  turinfr.txt
+
+  Example of obtained output: turinen.tok.al
+
+
+INSTALATION:
+
+  cc align.c -lm -o align
+
+  Test with turin files:
+
+  align -D '.EOP' -d '.EOS' turinen.tok turinde.tok
+
+  Produces <File1>.al
+
+
+USAGE:
+
+  align -D '.End_of_Hard_Link' -d '.End_of_Soft_Link'  file1 file2
+
+  outputs two files: file1.al & file2.al
+
+  regions are delimited by the -D and -d args
+
+  the program is allowed to delete -d delimiters as necessary in order
+  align the files, but it cannot change -D delimiters.
+
+

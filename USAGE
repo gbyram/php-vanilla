@@ -1,0 +1,10 @@
+Exemple for generating tokens from a document from europa :
+
+php xhtml2vanilla.php
+php xhtml2vanilla_sentence.php
+php xhtml2vanilla_sentence_alinea.php
+
+Exemple for computing Vanilla from our tokens
+
+./src/align2 -D '.EOP' -d '.EOS' ./exemples/celex_IP-04-901.fr.xml.tok ./exemples/celex_IP-04-901.el.xml.tok
+

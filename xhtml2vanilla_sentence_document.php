@@ -32,14 +32,15 @@ foreach($rep as $id_doc => $doc){
   foreach($doc as $array_segments){
     foreach($array_segments as $id_segment){
       $mot = $factory_mot->__get_word($id_segment);
-      ($mot == ".") ? $str_tok .= ".\n.EOS\n" : $str_tok .= "$mot\n";
+      ($mot == ".") ?$str_tok .= ".\n.SB\n.EOS\n" : $str_tok .= "$mot\n";
     }
+    if($mot != ".") $str_tok .= ".\n.SB\n.EOS\n";
   }
 }
 $str_tok .= ".EOP\n";
 
 $path_tok = $path.".sd.tok";
 if(tool_files::file_write($path_tok,$str_tok)){
-  print ">> tokens created in $path_tok";
+  print "\n>> tokens created in $path_tok";
 }
 ?>

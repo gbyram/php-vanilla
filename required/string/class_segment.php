@@ -541,20 +541,19 @@ class factory_mot{
     return $this->array_segment[$_id_word];
   }
   public function __add_word(&$_mot,$_id_doc,$_id_bloc){
-//    $array=array($_id_bloc,$_id_doc,$_mot->__get_offset(),$_mot->__get_len(),"i");
-
-    $new_id=array_push($this->array_segment,$_mot)-1;
-//    $new_id=array_push($this->array_segment,$array)-1;
-//    $new_id=array_push(array(),$_mot)-1;
-    
-    $str=mb_strtolower($_mot->__tostring());
-    $this->dictionnaire[$str][$_id_doc][$_id_bloc][]=$new_id;
-    $this->repartition_segment[$_id_doc][$_id_bloc][]=$new_id;
+    $new_id = array_push($this->array_segment,$_mot)-1;
+    $str = mb_strtolower($_mot->__tostring());
+    $this->dictionnaire[$str][$_id_doc][$_id_bloc][] = $new_id;
+    $this->repartition_segment[$_id_doc][$_id_bloc][] = $new_id;
+    if(!isset($this->dictionnaire_doc_freq[$_id_doc][$str])){
+      $this->dictionnaire_doc_freq[$_id_doc][$str] = 0;
+    }
     $this->dictionnaire_doc_freq[$_id_doc][$str]++;
-    $this->dictionnaire_doc[$_id_doc][$str][]=$new_id;
+    $this->dictionnaire_doc[$_id_doc][$str][] = $new_id;
+    if(!isset($this->dictionnaire_doc_bloc_freq[$_id_doc][$str][$_id_bloc])){
+      $this->dictionnaire_doc_bloc_freq[$_id_doc][$str][$_id_bloc] = 0;
+    }
     $this->dictionnaire_doc_bloc_freq[$_id_doc][$str][$_id_bloc]++;
-//    $this->dictionnaire_tmp[$_id_bloc][$]
-//    unset($_mot);
   }
 
   public function get_frequence_word($_word,$_dictionnaire=null){

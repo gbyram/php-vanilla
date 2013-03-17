@@ -29,25 +29,29 @@
 
   $data = Tool_files::file_load($path);
   $array_paquet = mb_split("\n\n",$data);
-//$array_paquet = Tool_files::csv2array_line($data,"\n\n");
   $o1 = $o2 = 0;
   $taille1 = $taille2 = 0;
   $align1 = $align2 = array();
 
   foreach($array_paquet as $paquet){
-    list($link, $str1, $str2) = mb_split("\n",$paquet);
-    if(!mb_ereg("\.EOP",$link)){
-      $array_s1 = mb_split(" \.SB ",$str1);
-      $array_s2 = mb_split(" \.SB ",$str2);
+    $split_paquet = mb_split("\n", $paquet);
+    if(count($split_paquet) !== 3){
+      continue;
+    }
+    list($link, $str1, $str2) = $split_paquet;
+    if(!mb_ereg('\.EOP',$link)){
+      $array_s1 = mb_split(' \.SB ',$str1);
+      $array_s2 = mb_split(' \.SB ',$str2);
       $al = mb_split(" ",$link);
-      $nb1 = $al[2]; $nb2 = $al[4];
+      $nb1 = $al[2];
+      $nb2 = $al[4];
       $new_group1 = $new_group2 = array();
       for($i=0 ; $i<$nb1 ; ++$i){
-        $new_group1[] = mb_substr($array_s1[$i],0,40)."...";
+        $new_group1[] = mb_substr($array_s1[$i],0,40) . "...";
       }
       $o1 += $nb1;
       for($j=0 ; $j<$nb2 ; ++$j){
-        $new_group2[] = mb_substr($array_s2[$j],0,40)."...";
+        $new_group2[] = mb_substr($array_s2[$j],0,40) . "...";
       }
       $o2 += $nb2;
       if($new_group1 != array()){

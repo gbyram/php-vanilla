@@ -128,7 +128,8 @@
     }
 
     public static function clean_digit($_string){
-      $pattern="([0-9]+) (\.) ([0-9]+)";
+      $pattern = '([0-9]+) (\.) ([0-9]+)';
+      $old_string = '';
       while($old_string !== $_string){
         $old_string = $_string;
         $_string = mb_ereg_replace($pattern,'\\1\\2\\3',$_string);

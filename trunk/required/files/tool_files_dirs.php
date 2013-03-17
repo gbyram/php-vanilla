@@ -1,6 +1,11 @@
 <?php
 
 class Tool_files{
+  public static function file_getRoot($_path){
+    $split = explode('/', $_path);
+    $file = array_pop($split);
+    return implode('/',$split);
+  }
 
  public static function url_load($_url){
   $http_page = file_get_contents($_url);
@@ -9,7 +14,7 @@ class Tool_files{
 
  public static function file_load($_path){
   if($id = @fopen($_path, "r")){
-   $buffer = fread($id, filesize($_path));
+   $buffer = fread($id, filesize($_path)+1);
    fclose($id);
   }
   return $buffer;
@@ -122,9 +127,6 @@ class Tool_dir{
     }
     return $array;
   }
-
-
-
 }
 
 

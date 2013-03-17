@@ -3,6 +3,12 @@ mb_internal_encoding("UTF-8");
 
 class Document_xml extends Document{
 
+ public static function path2lg($path){
+  $res = array();
+  preg_match('/([a-z]{2})\.xml/i', $path, $res);
+  return $res[1];
+ }
+
  public function __get_vals_token(){
   $parser_token=xml_parser_create();
   xml_parse_into_struct($parser_token,$this->container,$vals_token,$index_token);
